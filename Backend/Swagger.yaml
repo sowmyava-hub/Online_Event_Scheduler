@@ -1,0 +1,934 @@
+openapi: 3.0.3
+info:
+  title: Swagger OES
+  description: |-
+    Online Event Scheduling (OES) API Definitions
+  version: 1.0.11
+servers:
+  - url: https://oes.swagger.io/api/
+tags:
+  - name: Signup
+    description: API for user Signup
+  - name: Login
+    description: API for user Login
+  - name: Poll Initiator
+    description: APIs for Initiator
+  - name: Poll Participant
+    description: APIs for Participant
+  - name: Meeting
+    description: 1:1 Meetings
+paths:
+  /signup:
+    post:
+      tags:
+        - Signup
+      summary: New user Signup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Signup_Login'
+        required: true
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account_Created_Success'
+        '409':
+          description: Account Exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account_Exists'
+  /login:
+    post:
+      tags:
+        - Login
+      summary: User Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Signup_Login'
+        required: true
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Login_Success'
+        '408':
+          description: Login Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Login_Failed'
+  /api/poll/create:
+    post:
+      tags:
+        - Poll Initiator
+      summary: Initiate a new availability poll
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Poll_Create'
+        required: true
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poll_Create_Success'
+        '402':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invalid_Input_Response'
+        '403':
+          description: DB Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DB_Error_Response'
+  /api/poll:
+    get:
+      tags:
+        - Poll Initiator
+      summary: Get Poll Details
+      parameters:
+        - in : query
+          name: pollID
+          schema:
+            type: integer
+          required: true
+        - in : query
+          name: secret
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poll_Response'
+        '403':
+          description: Unable to retrieve
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DB_Retrieve_Error_Response'
+  /poll:
+    get:
+      tags:
+      - Poll Initiator
+      summary: Get Poll Details
+      parameters:
+        - in : query
+          name: pollID
+          schema:
+            type: integer
+          required: true
+        - in : query
+          name: secret
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poll_Response'
+        '403':
+          description: Unable to retrieve
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DB_Retrieve_Error_Response'
+    put:
+      tags:
+        - Poll Initiator
+      summary: Mark Final Time
+      parameters:
+        - in : query
+          name: pollID
+          schema:
+            type: integer
+          required: true
+        - in : query
+          name: secret
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mark_FinalTime'
+        required: true
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mark_FinalTime_Success'
+        '403':
+          description: Not successful 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mark_FinalTime_Failed'
+    delete:
+      tags:
+        - Poll Initiator
+      summary: Delete a poll
+      parameters:
+        - in : query
+          name: pollID
+          schema:
+            type: integer
+          required: true
+        - in : query
+          name: secret
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delete_Poll_Success'
+        '403':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delete_Poll_Failed'
+        '406':
+          description: Poll ID or Secret incorrect
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delete_Poll_Incorrect_Details'
+  /participant:
+    get:
+      tags:
+        - Poll Participant
+      summary: Get Poll Details
+      parameters:
+        - in : query
+          name: pollID
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Participant_Poll_Response'
+        '403':
+          description: Unable to retrieve
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DB_Retrieve_Error_Response'
+        '405':
+          description: Unable to retrieve
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poll_Closed_Response'
+    put:
+      tags:
+        - Poll Participant
+      summary: Mark availability
+      parameters:
+        - in : query
+          name: pollID
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mark_Availability'
+        required: true
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mark_Availability_Success'
+        '403':
+          description: Unable to retrieve
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DB_Error_Response'
+        '405':
+          description: Unable to retrieve
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poll_Closed_Response'
+  /api/meeting/create:
+    post:
+      tags:
+        - Meeting
+      summary: Create meeting availabilities
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Meeting'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meeting_Response'
+        '402':
+          description: Test Meeting error in saving to DB
+  /api/meeting:
+    get:
+      tags:
+        - Meeting
+      summary: Retrieve meeting details for a user
+      description: To get details of the meeting for display to user
+      parameters:
+        - name: userid
+          in: query
+          description: User ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMeeting_Response'
+        '400':
+          description: Invalid ID supplied
+  /api/meeting_registration:
+    put:
+      tags:
+        - Meeting
+      summary: Register for a meeting or meetings
+      description: To register for a meetings 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Meeting_Registration'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meeting_Registration_Response'
+        '402':
+          description: 1 error in registration
+components:
+  schemas:
+    Signup_Login:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+    Account_Created_Success:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Account Created Successfully"
+        user_id:
+          type: integer
+          example: 1
+        email:
+          type: string
+          format: email
+    Account_Exists:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Account already exists"
+        email:
+          type: string
+          format: email
+    Login_Success:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Success"
+        user_id:
+          type: integer
+          example: 1
+        email:
+          type: string
+          format: email
+    Login_Failed:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Account does not exist"
+        email:
+          type: string
+          format: email
+    Poll_Create:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Test"
+        description:
+          type: string
+          example: "Test Event for OES"
+        open:
+          type: boolean
+          example: True
+        secret:
+          type: string
+          example: "c1a57d02709d73b3a61e060220fb2a73"
+        location:
+          type: string
+          example: "Room 1"
+        endate:
+          type: string
+          example: "4/25/2023 1:38:00 PM"
+        recurr_endate:
+          type: string
+          example: ""
+        recurr:
+          type: string
+          example: ""
+        userid:
+          type: integer
+          example: -1
+        times:
+          type: array
+          items: 
+            type: object
+            properties:
+              start: 
+                type: integer
+              end: 
+                type: integer
+          example: 
+            - start: 1682397000000
+              end: 1682397900000
+            - start: 1682485200000
+              end: 1682486100000
+        createdAt:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date-time
+          example: 
+            date: '2023-04-25T17:38:34.388Z'
+        updatedAt:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date-time
+          example: 
+            date: '2023-04-25T17:38:34.388Z'
+      xml:
+        name: poll
+    Poll_Create_Success:
+      type: object
+      properties:
+        Poll ID:
+          type: integer
+          example: 1
+        status:
+          type: integer
+          example: 200
+    Poll_Response:
+      type: object
+      properties:
+        pollID:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Test"
+        description:
+          type: string
+          example: "Test Event for OES"
+        open:
+          type: boolean
+          example: True
+        secret:
+          type: string
+          example: "c1a57d02709d73b3a61e060220fb2a73"
+        location:
+          type: string
+          example: "Room 1"
+        endate:
+          type: string
+          example: "4/25/2023 1:38:00 PM"
+        recurr_endate:
+          type: string
+          example: ""
+        recurr:
+          type: string
+          example: ""
+        userid:
+          type: integer
+          example: -1
+        times:
+          type: array
+          items: 
+            type: object
+            properties:
+              start: 
+                type: integer
+              end: 
+                type: integer
+          example: 
+            - start: 1682397000000
+              end: 1682397900000
+            - start: 1682485200000
+              end: 1682486100000
+        finalTime:
+          type: object
+          properties:
+            start: 
+              type: integer
+            end: 
+              type: integer
+          example: 
+            start: 1682397000000
+            end: 1682397900000
+        votes:
+          type: array
+          items: 
+            type: object
+            properties:
+              name: 
+                type: string
+                example: "User 1"
+              times: 
+                type: array
+                items: 
+                  type: object
+                  properties:
+                    start: 
+                      type: integer
+                    end: 
+                      type: integer
+                example: 
+                - start: 1682397000000
+                  end: 1682397900000
+                - start: 1682485200000
+                  end: 1682486100000
+        createdAt:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date-time
+          example: 
+            date: '2023-04-25T17:38:34.388Z'
+        updatedAt:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date-time
+          example: 
+            date: '2023-04-25T17:38:34.388Z'
+    Mark_FinalTime:
+      type: object
+      properties:
+        finalTime:
+          type: object
+          properties:
+            start: 
+              type: integer
+            end: 
+              type: integer
+          example: 
+            start: 1682397000000
+            end: 1682397900000
+        open:
+          type: boolean
+          example: False
+        updatedAt:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date-time
+          example: 
+            date: '2023-04-25T17:38:34.388Z' 
+    Participant_Poll_Response:
+      type: object
+      properties:
+        pollID:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Test"
+        description:
+          type: string
+          example: "Test Event for OES"
+        open:
+          type: boolean
+          example: True
+        location:
+          type: string
+          example: "Room 1"
+        endate:
+          type: string
+          example: "4/25/2023 1:38:00 PM"
+        recurr_endate:
+          type: string
+          example: ""
+        recurr:
+          type: string
+          example: ""
+        userid:
+          type: integer
+          example: -1
+        times:
+          type: array
+          items: 
+            type: object
+            properties:
+              start: 
+                type: integer
+              end: 
+                type: integer
+          example: 
+            - start: 1682397000000
+              end: 1682397900000
+            - start: 1682485200000
+              end: 1682486100000
+        finalTime:
+          type: object
+          properties:
+            start: 
+              type: integer
+            end: 
+              type: integer
+          example: 
+            start: 1682397000000
+            end: 1682397900000
+        votes:
+          type: array
+          items: 
+            type: object
+            properties:
+              name: 
+                type: string
+                example: "User 1"
+              times: 
+                type: array
+                items: 
+                  type: object
+                  properties:
+                    start: 
+                      type: integer
+                    end: 
+                      type: integer
+                example: 
+                - start: 1682397000000
+                  end: 1682397900000
+                - start: 1682485200000
+                  end: 1682486100000
+        createdAt:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date-time
+          example: 
+            date: '2023-04-25T17:38:34.388Z'
+        updatedAt:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date-time
+          example: 
+            date: '2023-04-25T17:38:34.388Z'
+    Mark_Availability:
+      type: object
+      properties:
+        votes:
+          type: array
+          items: 
+            type: object
+            properties:
+              name: 
+                type: string
+                example: "User 1"
+              times: 
+                type: array
+                items: 
+                  type: object
+                  properties:
+                    start: 
+                      type: integer
+                    end: 
+                      type: integer
+                example: 
+                - start: 1682397000000
+                  end: 1682397900000
+                - start: 1682485200000
+                  end: 1682486100000
+    Mark_FinalTime_Success:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "1 final time marked successfully"
+        status:
+          type: integer
+          example: 200
+    Mark_FinalTime_Failed:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "1 final time not marked successfully"
+        status:
+          type: integer
+          example: 403
+    Delete_Poll_Success:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "1 deleted successfully"
+        status:
+          type: integer
+          example: 200
+    Delete_Poll_Failed:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "1 not deleted"
+        status:
+          type: integer
+          example: 403
+    Delete_Poll_Incorrect_Details:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "poll not deleted, secret incorrect or poll does not exist"
+        status:
+          type: integer
+          example: 406
+    Mark_Availability_Success:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "1 times marked for participant"
+        status:
+          type: integer
+          example: 200
+    Invalid_Input_Response:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Issue in required input fields"
+        status:
+          type: integer
+          example: 402
+    DB_Error_Response:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Test error in saving to DB"
+        status:
+          type: integer
+          example: 403
+    DB_Retrieve_Error_Response:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "1 error in retrieving from DB"
+        status:
+          type: integer
+          example: 403
+    Poll_Closed_Response:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Test poll is closed"
+        status:
+          type: integer
+          example: 405
+    Meeting:
+      type: object
+      properties:
+        userid:
+          type: integer
+          example: 99
+        title:
+          type: string
+          example: "Test Meeting"
+        description:
+          type: string
+          example: "Test Meeting for OES"
+        location:
+          type: string
+          example: "Test location"
+        secret:
+          type: string
+          example: "6923d722fd8477a11463e38c2c"
+        times:
+            example:
+              - start: 1683007200000
+                end: 1683008100000
+              - start: 1683002700000
+                end: 1683003600000
+              - start: 1683004500000
+                end: 1683005400000
+        endate:
+          type: string
+          example: "2023-05-04T06:00:00.000Z"
+        recurr:
+          type: string
+          example: "Dialy"
+        recurr_endate:
+          type: string
+          example: "2023-05-01T06:00:00.000Z"
+        recurr_event:
+            example:
+              - event_id: 1
+                title: "event 1"
+                start: "2023-05-02T06:00:00.000Z"
+                end: "2023-05-02T06:15:00.000Z"
+                color: "black"
+                status: 0
+              - event_id: 2
+                title: "event 2"
+                start: "2023-05-03T06:00:00.000Z"
+                end: "2023-05-03T06:15:00.000Z"
+                color: "black"
+                status: 0
+      xml:
+        name: poll
+    Meeting_Response:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Test Meeting"
+        meeting_id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 99
+        status:
+          type: integer
+          example: 200
+    Meeting_Registration_Response:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "success"
+        status:
+          type: integer
+          example: 200
+    Meeting_Registration:
+      type: object
+      properties:
+        meeting_id:
+          type: integer
+          example: 1
+        recurr_event:
+            example:
+              - event_id: 1
+                title: "event 1"
+                start: "2023-05-02T06:00:00.000Z"
+                end: "2023-05-02T06:15:00.000Z"
+                color: "green"
+                status: 0
+              - event_id: 2
+                title: "event 2"
+                start: "2023-05-03T06:00:00.000Z"
+                end: "2023-05-03T06:15:00.000Z"
+                color: "black"
+                status: 0
+    GetMeeting_Response:
+      type: object
+      properties:
+        Meeting details:
+          type: array
+          items:
+            type: object
+            example:
+              userid: 99
+              title: "Test Meeting"
+              description: "Test Meeting for OES"
+              location: "Test location"
+              secret: "6923d722fd8477a11463e38c2c"
+              times:
+                - start: 1683007200000
+                  end: 1683008100000
+                - start: 1683002700000
+                  end: 1683003600000
+                - start: 1683004500000
+                  end: 1683005400000
+              endate: "2023-05-04T06:00:00.000Z"
+              recurr: "Dialy"
+              recurr_endate: "2023-05-01T06:00:00.000Z"
+              recurr_event:
+                - event_id: 1
+                  title: "event 1"
+                  start: "2023-05-02T06:00:00.000Z"
+                  end: "2023-05-02T06:15:00.000Z"
+                  color: "black"
+                  status: 0
+                - event_id: 2
+                  title: "event 2"
+                  start: "2023-05-03T06:00:00.000Z"
+                  end: "2023-05-03T06:15:00.000Z"
+                  color: "black"
+                  status: 0

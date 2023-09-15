@@ -1,0 +1,1 @@
+select convert(varchar(20), getdate(), 101);

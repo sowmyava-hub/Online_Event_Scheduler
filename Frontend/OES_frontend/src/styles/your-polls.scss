@@ -1,0 +1,233 @@
+.no-poll-container {
+  margin-top: 7rem;
+  margin-bottom: 2rem;
+  padding-left: 0.5rem;
+  width: 95%;
+  padding-right: 0.5rem;
+  text-align: center;
+
+  @include media-breakpoint-up(sm) {
+    width: 100rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .icon {
+    font-size: 4rem;
+    background-color: #e5e7eb;
+    border-radius: 1.5rem;
+    padding: 1rem;
+  }
+
+  .first-line {
+    display: block;
+    font-family: "Cal Sans";
+    font-size: 2rem;
+    color: #101827;
+    margin-top: 2rem;
+  }
+
+  .second-line {
+    display: block;
+    font-family: "Inter";
+    font-size: 1rem;
+    color: #636466;
+    margin-top: 0.5rem;
+    margin-bottom: 3rem;
+  }
+}
+
+.poll-container {
+  padding-left: 0.5rem;
+  width: 95%;
+  padding-right: 0.5rem;
+  margin-top: 2rem;
+
+  @include media-breakpoint-up(sm) {
+    width: 75rem;
+    margin-top: 7rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.your-polls-polls-heading {
+  font-size: 1.2rem;
+  color: #565656;
+  letter-spacing: 0.02rem;
+  font-family: "Cal Sans";
+  font-weight: 700;
+
+  a {
+    color: #101827;
+    text-decoration: underline;
+
+    &:hover {
+      color: #101827;
+    }
+  }
+}
+
+.your-polls-poll-card {
+  font-family: "Cal Sans";
+  border-radius: 0.5rem;
+  margin-top: 1.5rem;
+  letter-spacing: 0.02rem;
+  color: #101827;
+  border: 0.1rem solid #e5e7ed;
+
+
+  a {
+    color: #101827;
+
+    &:hover {
+      color: #101827;
+      text-decoration: none;
+    }
+  }
+
+  &:last-of-type {
+    margin-bottom: 2rem;
+  }
+
+  .stretched-link {
+    font-size: 1rem;
+  }
+}
+
+.poll-name {
+  vertical-align: middle;
+}
+
+.card-options {
+  float: right;
+}
+
+.option-button {
+  background-color: #ffffff;
+  padding: 0.3rem 0.8rem 0.3rem 0.8rem;
+  border: 0.09rem solid #e5e7ed;
+  margin-left: 0.5rem;
+  transition: none !important;
+
+  &:hover {
+    box-shadow: none !important;
+    border: 0.09rem solid #000000 !important;
+    background-color: #f6f6f6 !important;
+  }
+
+  &:active,
+  &:focus {
+    box-shadow: none !important;
+    border: 0.09rem solid #e5e7ed !important;
+    background-color: #ffffff !important;
+  }
+
+  .icon {
+    color: #000000;
+    margin-top: -0.3rem;
+    font-size: 0.8rem;
+  }
+}
+
+.trash-button {
+  background-color: #ffffff;
+  padding: 0.3rem 0.8rem 0.3rem 0.8rem;
+  border: 0.09rem solid #e5e7ed;
+  margin-left: 0.5rem;
+  transition: none !important;
+
+  &:hover {
+    box-shadow: none !important;
+    border: 0.09rem solid #ff0000 !important;
+    background-color: #f6f6f6 !important;
+  }
+
+  &:hover .icon {
+    color: #ff0000;
+  }
+
+  &:active,
+  &:focus {
+    box-shadow: none !important;
+    border: 0.09rem solid #e5e7ed !important;
+    background-color: #ffffff !important;
+  }
+
+  .icon {
+    color: #000000;
+    margin-top: -0.3rem;
+    font-size: 0.8rem;
+  }
+}
+
+.modal-title {
+  font-family: "Cal Sans";
+  font-size: 1.4rem;
+  letter-spacing: 0.03rem;
+  color: #101827;
+}
+
+.modal-body {
+  font-family: "Inter";
+  font-size: 1rem;
+  color: #555555;
+}
+
+.modal-header {
+  border-bottom: 0;
+}
+
+.modal-footer {
+  border-top: 0;
+}
+
+.modal-footer .btn {
+  background-color: #101827;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 0.9rem;
+  font-family: "Inter";
+  border-radius: 0.5rem;
+  margin-top: 0.05rem;
+  border: none;
+  padding: 0.35rem 1rem 0.35rem 1rem;
+  width: 100%;
+
+  &:hover {
+    color: #ffffff !important;
+    box-shadow: none !important;
+    border: none !important;
+    background-color: #d90000 !important;
+  }
+
+  &:active,
+  &:focus {
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
+    background-color: #101827 !important;
+  }
+
+  &[disabled] {
+    opacity: 1 !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+    border: none !important;
+    background-color: #101827 !important;
+    pointer-events: none;
+  }
+
+  @include media-breakpoint-up(sm) {
+    width: unset;
+    float: right;
+  }
+}
+
+.modal-header .close {
+  &:focus {
+    outline: 0;
+    border: 0px solid #fff;
+    outline: none;
+  }
+}

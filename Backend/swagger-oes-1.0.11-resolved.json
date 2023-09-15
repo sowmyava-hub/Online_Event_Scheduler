@@ -1,0 +1,223 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Swagger OES",
+    "description": "Online Event Scheduling (OES) API Definitions",
+    "version": "1.0.11"
+  },
+  "servers": [
+    {
+      "url": "https://oes.swagger.io/api/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Poll",
+      "description": "Event Availability Poll"
+    }
+  ],
+  "paths": {
+    "/initiate_poll": {
+      "post": {
+        "tags": [
+          "Poll"
+        ],
+        "summary": "Initiate a new availability poll",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Poll"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Poll_Response"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/get_poll": {
+      "get": {
+        "tags": [
+          "event_name"
+        ],
+        "summary": "Find purchase order by ID",
+        "description": "To get details of the event for display to participants",
+        "parameters": [
+          {
+            "name": "event_name",
+            "in": "query",
+            "description": "Name of the event poll to be fetched",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "description": "Timezone in which event poll is to be fetched",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPoll_Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Poll": {
+        "type": "object",
+        "properties": {
+          "event_name": {
+            "type": "string",
+            "example": "Test"
+          },
+          "description": {
+            "type": "string",
+            "example": "Test Event for OES"
+          },
+          "initiator_name": {
+            "type": "string",
+            "example": "Initiator"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "from_slot": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "to_slot": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "survey_end": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "timezone": {
+            "type": "string"
+          },
+          "recurring": {
+            "type": "integer",
+            "example": 1
+          },
+          "user_type": {
+            "type": "integer",
+            "example": 2
+          }
+        },
+        "xml": {
+          "name": "poll"
+        }
+      },
+      "Poll_Response": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Test saved successfully"
+          },
+          "status": {
+            "type": "integer",
+            "example": 200
+          }
+        }
+      },
+      "GetPoll_Response": {
+        "type": "object",
+        "properties": {
+          "event_name": {
+            "type": "string",
+            "example": "Test"
+          },
+          "description": {
+            "type": "string",
+            "example": "Test Event for OES"
+          },
+          "initiator_name": {
+            "type": "string",
+            "example": "Initiator"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "from_slot": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "to_slot": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "survey_end": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "timezone": {
+            "type": "string"
+          },
+          "recurring": {
+            "type": "integer",
+            "example": 1
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "Poll": {
+        "description": "Saved or not saved successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Poll_Response"
+            }
+          }
+        }
+      }
+    }
+  }
+}

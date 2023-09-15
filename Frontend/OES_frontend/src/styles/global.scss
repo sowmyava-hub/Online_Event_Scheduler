@@ -1,0 +1,174 @@
+@import "/node_modules/bootstrap/scss/bootstrap.scss";
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background: #c9c9c9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b9b9b9;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 0.5rem;
+  background: #e4e4e4;
+}
+
+::-moz-selection {
+  color: #f9fafa;
+  background: #101827;
+}
+
+::selection {
+  color: #f9fafa;
+  background: #101827;
+}
+
+main {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.global-flex-wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.global-container {
+  padding-left: 0.5rem;
+  width: 95%;
+  padding-right: 0.5rem;
+
+  @include media-breakpoint-up(sm) {
+    width: 75rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.global-page-section {
+  margin-top: 1.5rem;
+
+  @include media-breakpoint-up(sm) {
+    margin-top: 2rem;
+  }
+}
+
+.Toastify__toast-body {
+  font-size: 0.8rem;
+  font-family: "Inter";
+}
+
+.global-primary-button {
+  background-color: #101827;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 1rem;
+  font-family: "Cal Sans";
+  letter-spacing: 0.09rem;
+  border-radius: 0.5rem;
+  margin-top: 0.05rem;
+  border: none;
+  padding: 0.35rem 1rem 0.35rem 1rem;
+  width: 100%;
+
+  &:hover {
+    color: #ffffff !important;
+    box-shadow: none !important;
+    border: none !important;
+    background-color: #353535 !important;
+  }
+
+  &:active,
+  &:focus {
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
+    background-color: #101827 !important;
+  }
+
+  &[disabled] {
+    opacity: 1 !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+    border: none !important;
+    background-color: #101827 !important;
+    pointer-events: none;
+  }
+
+  @include media-breakpoint-up(sm) {
+    width: unset;
+    float: right;
+  }
+}
+
+.global-primary-button:hover {
+  box-shadow: 0rem 0.15rem 0.3rem rgba(0, 0, 0, 0.2);
+}
+
+.global-primary-button[disabled] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.global-small-primary-btn {
+  background-color: #101827;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 1rem;
+  font-family: "Cal Sans";
+  letter-spacing: 0.09rem;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.35rem 1.2rem 0.35rem 1.2rem;
+
+  &:hover {
+    color: #ffffff !important;
+    box-shadow: none !important;
+    border: none !important;
+    background-color: #424242 !important;
+  }
+
+  &:active,
+  &:focus {
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
+    background-color: #101827 !important;
+  }
+}
+
+@import "./navbar.scss";
+@import "./poll.scss";
+@import "./datetime.scss";
+@import "./new-poll.scss";
+@import "./rat.scss";
+@import "./form.scss";
+@import "./privacy.scss";
+@import "./your-polls.scss";
+@import "./how-to.scss";
+@import "./voter-page.scss";
+@import "react-big-calendar/lib/css/react-big-calendar.css";
+@import "react-toastify/dist/ReactToastify.css";
+@import "./oes-rbc.scss";
+@import "./main_page.css";
+@import "./forms_jsx.scss";
+@import "./reboot.scss";

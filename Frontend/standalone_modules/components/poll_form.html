@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='poll_css.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <section class="OrganizationForm__section OrganizationForm__section--first snipcss-IR6wl">
+        <h1 class="OrganizationForm__section-heading">
+          Create group poll
+        </h1>
+        <div class="OrganizationForm__section-container">
+          <section class="MeetingMetadata">
+            <div class="MeetingMetadata__title">
+              <div class="Input Input--dark">
+                <label class="Input-label">
+                  <span class="Input-labelText">
+                    Title
+                  </span>
+                  <span class="Input-wrapper">
+                    <input class="Input-field" placeholder="What's the occasion?" data-testid="title-input-field" maxlength="64" name="title" type="text" required="" value="">
+                  </span>
+                  <div class="InputFeedback InputFeedback--error">
+                    Your invite needs a name 
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div class="MeetingMetadata__description">
+              <label class="Input-label">
+                Description (optional)
+                <textarea class="MeetingMetadata__description__textarea Input-field" placeholder="Here you can include things like an agenda, instructions, or other details" maxlength="3000" wrap="soft" style="height: 42px !important;">
+                </textarea>
+              </label>
+            </div>
+            <div class="MeetingMetadata__location">
+              <div role="button" class="CustomDropdown" tabindex="-1">
+                <div class="CustomDropdown__input">
+                  <label class="Input-label">
+                    Location (optional)
+                    <div class="Input-fieldWithButton">
+                      <div class="Input-field">
+                        <input placeholder="Where will this happen?" data-testid="location-input-field" aria-expanded="false" aria-haspopup="true" autocomplete="off" name="location" type="text" id="location" maxlength="255" value="">
+                        <button class="Button Button--linkBlue Button--iconButton Button--inputButton" type="button">
+                          <span class="Button-contentWrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="Icon Button-icon " width="22px" aria-hidden="true" focusable="false">
+                              <g fill="currentColor">
+                                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+                                </path>
+                                <path d="M0 0h24v24H0z" fill="none">
+                                </path>
+                              </g>
+                            </svg>
+                            <span class="u-srOnly">
+                              Button
+                            </span>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+                <div class="CustomDropdown__menu">
+                  <div class="submenu" role="menu">
+                    <div class="submenu__list" role="button" tabindex="-1" aria-hidden="true">
+                      <ul aria-labelledby="location">
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="MeetingMetadata__video-conferencing">
+              <div class="VideoConferencing" data-testid="video-conferencing">
+                <div class="VideoConferencing-ToggleContainer">
+                  <label class="Toggle Toggle--dark">
+                    <input tabindex="0" type="checkbox" class="Toggle-input" id="video-conferencing-toggle" data-testid="video-conferencing-toggle">
+                    <!-- <span class="Toggle-slider">
+                    </span> -->
+                    <!-- <span class="Toggle-label">
+                      <span class="Toggle-label-text-wrapper">
+                        <span class="Toggle-label--text">
+                          Video conferencing
+                        </span>
+                      </span>
+                    </span> -->
+                  </label>
+                </div>
+                <!-- <div class="VCDropdownContainer__wrapper">
+                </div> -->
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    
+</body>
+</html>
+
+
+
+  
+  
